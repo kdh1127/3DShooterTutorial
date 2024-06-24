@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
 
 	public LayerMask collisionMask;
+	public Color trailColour;
 	float speed = 10;
 	float damage = 1;
 
@@ -21,6 +22,8 @@ public class Projectile : MonoBehaviour
 		{
 			OnHitObject(initialCollisions[0], transform.position);
 		}
+
+		GetComponent<TrailRenderer>().material.SetColor("_TintColor", trailColour);
 	}
 
 	public void SetSpeed(float newSpeed)
@@ -43,7 +46,7 @@ public class Projectile : MonoBehaviour
 
 		if (Physics.Raycast(ray, out hit, moveDistance + skinWidth, collisionMask, QueryTriggerInteraction.Collide))
 		{
-			OnHitObject(hit.collider, hit.point) ;
+			OnHitObject(hit.collider, hit.point);
 		}
 	}
 
@@ -57,6 +60,3 @@ public class Projectile : MonoBehaviour
 		GameObject.Destroy(gameObject);
 	}
 }
-
-
-

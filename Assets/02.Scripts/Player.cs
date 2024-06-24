@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(GunController))]
+
 public class Player : LivingEntity
 {
 
@@ -43,7 +44,11 @@ public class Player : LivingEntity
 		// Weapon input
 		if (Input.GetMouseButton(0))
 		{
-			gunController.Shoot();
+			gunController.OnTriggerHold();
+		}
+		if (Input.GetMouseButtonUp(0))
+		{
+			gunController.OnTriggerRelease();
 		}
 	}
 }
