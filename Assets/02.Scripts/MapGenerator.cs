@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 		tileMap = new Transform[currentMap.mapSize.x, currentMap.mapSize.y];
 		System.Random prng = new System.Random(currentMap.seed);
 
-		//��ǥ ����
+		//좌표 생성
 		allTileCoords = new List<Coord>();
 		for (int x = 0; x < currentMap.mapSize.x; x++)
 		{
@@ -54,7 +54,7 @@ public class MapGenerator : MonoBehaviour
 		}
 		shuffledTileCoords = new Queue<Coord>(Utility.ShuffleArray(allTileCoords.ToArray(), currentMap.seed));
 
-		//�� Ȧ�� ������Ʈ ����
+		//맵 홀더 오브젝트 생성
 		string holderName = "Generated Map";
 		if (transform.Find(holderName))
 		{
@@ -64,7 +64,7 @@ public class MapGenerator : MonoBehaviour
 		Transform mapHolder = new GameObject(holderName).transform;
 		mapHolder.parent = transform;
 
-		// Ÿ�� ����
+		// 타일 스폰
 		for (int x = 0; x < currentMap.mapSize.x; x++)
 		{
 			for (int y = 0; y < currentMap.mapSize.y; y++)
@@ -77,7 +77,7 @@ public class MapGenerator : MonoBehaviour
 			}
 		}
 
-		//��ֹ� ����
+		//장애물 스폰
 		bool[,] obstacleMap = new bool[(int)currentMap.mapSize.x, (int)currentMap.mapSize.y];
 
 		int obstacleCount = (int)(currentMap.mapSize.x * currentMap.mapSize.y * currentMap.obstaclePercent);
@@ -116,7 +116,7 @@ public class MapGenerator : MonoBehaviour
 
 		shuffledOpenTileCoords = new Queue<Coord>(Utility.ShuffleArray(allOpenCoords.ToArray(), currentMap.seed));
 
-		// ����޽� ����ũ ����
+		// 내브메쉬 마스크 생성
 		Transform maskLeft = Instantiate(navmeshMaskPrefab, Vector3.left * (currentMap.mapSize.x + maxMapSize.x) / 4f * tileSize, Quaternion.identity) as Transform;
 		maskLeft.parent = mapHolder;
 		maskLeft.localScale = new Vector3((maxMapSize.x - currentMap.mapSize.x) / 2f, 1, currentMap.mapSize.y) * tileSize;
