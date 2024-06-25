@@ -21,7 +21,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 		// Do some stuff here with hit var
 		TakeDamage(damage);
 	}
-	
+
 	public virtual void TakeDamage(float damage)
 	{
 		health -= damage;
@@ -31,8 +31,9 @@ public class LivingEntity : MonoBehaviour, IDamageable
 			Die();
 		}
 	}
+
 	[ContextMenu("Self Destruct")]
-	protected void Die()
+	public virtual void Die()
 	{
 		dead = true;
 		if (OnDeath != null)
